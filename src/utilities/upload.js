@@ -10,17 +10,24 @@ var multer = require('multer');
  * @param data will be holding name of file and file data base64
  * @param reply return unique file name generated in this function and file headers or error if there is any arror uploading file
  */
-const handleFileUpload = file => {
-    return new Promise((resolve, reject) => {
-      fs.writeFile('static/upload/', file, err => {
-         if (err) {
-          reject(err)
-         }
-         resolve({ message: 'Upload successfully!' })
+const localUpload = (data, reply) => {
+  if (data) {
+    console.log("sd",data)
+      const name = uuid.v1() + data.hapi.filename;
+      const path = config.rootPath + "/static/uploads/" + name;
+      const file = fs.createWriteStream(path);
+      file.on('error', function (err) {
+          console.error(err)
+      });
+      data.pipe(file);
+      data.on('end', function (err) {
+          return reply(null, {
+              filename: name,
+              headers: data.hapi.headers
+          });
       })
-    })
-   }
-
+  }
+};
 
 
 /**
@@ -33,7 +40,7 @@ const generateImageName = (fileName) => {
 };
 
 module.exports = {
-    handleFileUpload:handleFileUpload,
+  localUpload:localUpload,
    generateImageName: generateImageName,
     
 };

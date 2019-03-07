@@ -17,6 +17,7 @@ const userModel = 'users';
 module.exports = (req, callback) => model[userModel].findOne({
     where: {
         phone: req.phone,
+        deleted:0,
     },
 }).then(employees => {
     if (employees) {
