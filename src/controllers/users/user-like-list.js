@@ -64,7 +64,8 @@ module.exports = (req, callback) => {
                             height:usersList.height,
                             lat:usersList.lat,
                             lng:usersList.lng,
-                            location:usersList.location
+                            location:usersList.location,
+                            token:usersList.token
 
                         })
                         

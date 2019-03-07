@@ -19,16 +19,12 @@ module.exports = [
             notes: 'Upload file to the S3 server.',
             tags: ['api', 'Upload'],
            
-            handler: (request, reply) => {
-                const fileName = upload.generateImageName(request.payload.file.hapi.filename);
-                Promise.all([upload.s3upload(fileName, request.payload.file._data)])
-                    .then(() => {
-                        reply(null, responses.dataResponse(statusCodes.OK, responseMsg.UPLOAD_SUCCESSFULLY, {fileName: fileName}));
-                    })
-                    .catch(err => {
-                        reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
-                    });
-            },
+         
+  handler: async (req, h) => {
+    const { payload } = req
+    const response = upload.handleFileUpload(payload.file)
+    return response
+  },
             validate: {
                 payload: Joi.object({
                     file: Joi.any().meta({swaggerType: 'file'}).description('.png|.jpg file').required()
