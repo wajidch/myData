@@ -16,7 +16,7 @@ const localUpload = (data, reply) => {
       const name = uuid.v1() + data;
       console.log("sd",name)
 
-      const path = config.rootPath + "/static/uploads/" + name;
+      const path = "C:/wamp/www/upload" + name;
       const file = fs.createWriteStream(path);
       file.on('error', function (err) {
           console.error(err)

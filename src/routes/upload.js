@@ -6,7 +6,7 @@ const responseMsg = require("../../constants/response-messages");
 const plugins = require('../../constants/routes-config');
 const responses = require('../utilities/responses');
 const config = require('../../configs/config');
-
+const fs=require('fs')
 const upload = require('../utilities/upload');
 
 module.exports = [
@@ -23,11 +23,14 @@ module.exports = [
         }
     },
     handler: (request, response) => {
-        var result = [];
-        for(var i = 0; i < request.payload["file"].length; i++) {
-            result.push(request.payload["file"][i].hapi);
-            request.payload["file"][i].pipe(fs.createWriteStream(__dirname + "/uploads/" + request.payload["file"][i].hapi.filename))
-        }
+        var result ={
+        statusCode:200,
+        fileName:request.payload["file"].hapi.filename ,
+        message:'File uploaded successfully'
+    }
+       
+            request.payload["file"].pipe(fs.createWriteStream("/var/www/html/uploads" + request.payload["file"].hapi.filename))
+        
         response(result);
     }
 }
