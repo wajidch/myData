@@ -13,19 +13,15 @@ var multer = require('multer');
 const localUpload = (data, reply) => {
   if (data) {
     console.log("sd",data)
-      const name = uuid.v1() + data.hapi.filename;
+      const name = uuid.v1() + data;
+      console.log("sd",name)
+
       const path = config.rootPath + "/static/uploads/" + name;
       const file = fs.createWriteStream(path);
       file.on('error', function (err) {
           console.error(err)
       });
-      data.pipe(file);
-      data.on('end', function (err) {
-          return reply(null, {
-              filename: name,
-              headers: data.hapi.headers
-          });
-      })
+    return file
   }
 };
 

@@ -26,20 +26,18 @@ module.exports = (req, callback) => {
 
             return callback(null, responses.duplicateResponse());
         } else {
-            hashPasswordUtility({ password: req.password }, (err, hash) => {
-                return model.sequelize.transaction((t) => {
+            
+                
          
                   
-                    model[userModel].create(req);
-                    
-                }).then(() => {
-                    return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.ADDITION_SUCCESSFULL, req));
+                    model[userModel].create(req).then(created => {
+                    return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.ADDITION_SUCCESSFULL, created));
 
                   
                 }).catch(err => {
                     return callback(err)
                 });
-            });
+            
         }
     }).catch(err => {
         return callback(err);
