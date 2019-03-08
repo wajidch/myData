@@ -9,7 +9,7 @@ module.exports = {
     rootPath: path.join(__dirname, '/..'),
   serverUrl: 'http://68.183.37.116:5001',
   //serverUrl: 'localhost:3000',
-    port:'3000',
+    port:'5001',
     environment: process.env.NODE_ENV,
     mailer: {
         service: process.env.MAILER_PROVIDER,
