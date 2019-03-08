@@ -54,7 +54,8 @@ module.exports = (req, callback) => {
                     profile_picture: created.profile_picture,
                     lat: created.lat,
                     lng: created.lng,
-                    location: created.location
+                    location: created.location,
+                    image_blur:created.image_blur
                 }
                 return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.ADDITION_SUCCESSFULL, signUp));
 

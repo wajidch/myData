@@ -17,6 +17,8 @@ const userfavouriteList=require('../controllers/users/favouriteList');
 const edit=require('../controllers/users/user_edit')
 const userLikeList=require('../controllers/users/user-like-list')
 const whoLikeMe=require('../controllers/users/whoLikeMe')
+const userPreference=require('../controllers/users/user_preference')
+
 
 const Joi = require('joi');
 module.exports = [
@@ -70,6 +72,33 @@ module.exports = [
             },
             validate: {
                 payload: validator.add,
+                failAction: (request, reply, source, err) => {
+                    reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
+                }
+            },
+            plugins: plugins.swaggerPlugin
+        }
+    },
+    {
+        method: 'POST',
+        path: config.apiPrefix + '/User/user_preference',
+        config: {
+            description: 'user preferenc',
+            notes: '0 for false and 1 for true.',
+            tags: ['api', 'User'],
+            auth: false,
+            handler: (request, reply) => {
+                userPreference(request.payload, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
+                    } else {
+                        reply(results);
+                    }
+                });
+            },
+            validate: {
+                payload: validator.userPreference,
                 failAction: (request, reply, source, err) => {
                     reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
                 }

@@ -92,6 +92,10 @@ module.exports = function (sequelize, DataTypes) {
             location:
             {
                 type:DataTypes.STRING(100)
+            },
+            image_blur:{
+                type: DataTypes.INTEGER(4),
+                defaultValue: '0'
             }
           
         

@@ -27,6 +27,7 @@ const add = Joi.object({
     lat:Joi.string().optional(),
     lng:Joi.string().optional(),
     location:Joi.string().optional(),
+    image_blur:Joi.number().integer().default(0)
   
 
 });
@@ -63,8 +64,7 @@ const userlist=Joi.object({
     phone:Joi.string().required(),
     minAge:Joi.string().optional(),
     maxAge:Joi.string().optional(),
-    minDistance:Joi.string().optional(),
-    maxDistance:Joi.string().optional(),
+   
 })
 const userLiked=Joi.object({
     user_id:Joi.number().required(),
@@ -106,6 +106,18 @@ const userFavouriteList=Joi.object({
 const userLogin=Joi.object({
     phone:Joi.string().required()
 })
+const userPreference=Joi.object({
+
+    user_id:Joi.number().integer().required(),
+    country:Joi.string().optional(),
+    country_switch:Joi.number().integer().default(0),
+    distance_switch:Joi.number().integer().default(0),
+    distance_value:Joi.string().optional(),
+    visible_photo_switch:Joi.number().integer().default(0),
+    children_switch:Joi.number().integer().default(0),
+    image_blur:Joi.number().integer().default(0),
+    
+})
 module.exports = {
     add,
     userlist,
@@ -117,5 +129,6 @@ module.exports = {
     userFavouriteList,
     edit,
     userLikeList,
-    whoLikeMe
+    whoLikeMe,
+    userPreference
 };
