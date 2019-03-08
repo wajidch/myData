@@ -18,7 +18,7 @@ const userModel = 'users';
  * Register user
  * @param req is containing payload sent from user
  * @param callback will return response to handler
-//  */
+ */
 module.exports = (req, callback) => {
 
     model[userModel].findOne({ where: { phone: { [Op.eq]: req.phone } ,deleted:0} }).then(employee => {
@@ -26,45 +26,20 @@ module.exports = (req, callback) => {
 
             return callback(null, responses.duplicateResponse());
         } else {
-            hashPasswordUtility({ password: req.password }, (err, hash) => {
-                return model.sequelize.transaction((t) => {
+            
+                
          
                   
-                    model[userModel].create(req);
-                    
-                }).then(() => {
-                            return callback(null, responses.additionResponse());
+                    model[userModel].create(req).then(created => {
+                    return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.ADDITION_SUCCESSFULL, created));
+
                   
                 }).catch(err => {
                     return callback(err)
                 });
-            });
+            
         }
     }).catch(err => {
         return callback(err);
     });
 }
-// module.exports = (req, callback) => {
-
-//     model[userModel].findOne({ where: { phone: { [Op.eq]: req.phone } ,deleted:0} }).then(employee => {
-//         if (employee) {
-
-//             return callback(null, responses.duplicateResponse());
-//         } else {
-            
-                
-         
-                  
-//                     model[userModel].create(req).then(created => {
-//                     return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.ADDITION_SUCCESSFULL, created));
-
-                  
-//                 }).catch(err => {
-//                     return callback(err)
-//                 });
-            
-//         }
-//     }).catch(err => {
-//         return callback(err);
-//     });
-// }
