@@ -19,6 +19,7 @@ module.exports = (req, callback) => model[userModel].findOne({
         phone: req.phone,
         deleted:0,
     },
+    attributes:{  exclude: ['deleted']}
 }).then(employees => {
     if (employees) {
         return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.LOGIN_SUCCESSFULL, employees));
