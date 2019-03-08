@@ -29,7 +29,7 @@ module.exports = [
         message:'File uploaded successfully'
     }
        
-            request.payload["file"].pipe(fs.createWriteStream("/var/www/html/uploads" + request.payload["file"].hapi.filename))
+            request.payload["file"].pipe(fs.createWriteStream("/var/www/html/uploads/" + request.payload["file"].hapi.filename))
         
         response(result);
     }
