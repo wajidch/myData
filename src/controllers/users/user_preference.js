@@ -40,7 +40,14 @@ module.exports = (req, callback) => {
                     distance_value:created.distance_value,
                     visible_photo_switch:created.visible_photo_switch,
                     children_switch:created.children_switch,
-                    image_blur:created.image_blur
+                    image_blur:created.image_blur,
+                    ethnicity:created.ethnicity,
+                    beliefs:created.beliefs,
+                    marital_status:created.marital_status,
+                    minheight:created.minheight,
+                    maxheight:created.maxheight,
+                    minAge:created.minAge,
+                    maxAge:created.maxAge,
                 }
                 return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.ADDITION_SUCCESSFULL, userPreference));
 

@@ -22,20 +22,21 @@ module.exports = (req, callback) => {
             return callback(null, responses.notFoundResponse());
         } else {
 
-            model[userPreferenceModel].findAll({
+            model[userPreferenceModel].findOne({
                 where:{
                     user_id:usersList.id
                 }
             }).then(userPreference=>{
-                if(userPreference.length){
+                if(userPreference){
                     model[userModel].findAll({
                         where: {
                             [Op.or]: [
-                                { country: usersList.country },
-                                { beliefs: usersList.beliefs },
-                                { marital_status: usersList.marital_status },
-                                { looking_for: usersList.looking_for },
-                                { age: { [Op.gte]: req.minAge, [Op.lte]: req.maxAge } },
+                                { country: userPreference.country },
+                                { beliefs: userPreference.beliefs },
+                                { marital_status: userPreference.marital_status },
+                                { ethnicity: userPreference.ethnicity },
+                                { age: { [Op.gte]: userPreference.minAge, [Op.lte]: userPreference.maxAge } },
+                                { height: { [Op.gte]: userPreference.minheight, [Op.lte]: userPreference.maxheight } },
 
                                 { distance: { [Op.eq]:userPreference.distance_value} },
         
