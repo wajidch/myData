@@ -29,7 +29,8 @@ module.exports = (req, callback) => {
                 });
                 model[userModel].findAll({
                     where:{
-                        id:{[Op.in]:userId}
+                        id:{[Op.in]:userId},
+                        deleted:0
                     }
                 }).then(userlist=>{
                     let userArray=[]

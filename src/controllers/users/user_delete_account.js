@@ -6,10 +6,10 @@ const responses = require('../../utilities/responses');
 const model = require('../../models');
 const Op = model.Sequelize.Op;
 
-const userLikeModel = 'users';
+const userModel = 'users';
 
 module.exports = (req, callback) => {
-  model[userLikeModel].update({deleted:1},{
+  model[userModel].update({deleted:1},{
 where:{
     id:req.user_id
 }
