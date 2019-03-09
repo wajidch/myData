@@ -31,6 +31,7 @@ module.exports = (req, callback) => {
                 if(userPreference){
                     model[userModel].findAll({
                         where: {
+                            id:{[Op.ne]:req.user_id},
                             [Op.or]: [
                                 { country: userPreference.country },
                                 { beliefs: userPreference.beliefs },
@@ -48,6 +49,7 @@ module.exports = (req, callback) => {
                        
                     }).then(MatchUser => {
         
+
         
                         return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.FETCH_SUCCESSFULL, MatchUser));
                     })
@@ -55,14 +57,14 @@ module.exports = (req, callback) => {
                 else{
                 model[userModel].findAll({
                     where: {
+                        id:{[Op.ne]:req.user_id},
                         [Op.or]: [
                             { interested: usersList.interested },
                             { beliefs: usersList.beliefs },
                             { marital_status: usersList.marital_status },
                             { looking_for: usersList.looking_for },
                             { age: { [Op.gte]: req.minAge, [Op.lte]: req.maxAge } },
-                            { distance: { [Op.gte]: req.minDistance, [Op.lte]: req.maxDistance } },
-    
+                           
     
                         ],
                         deleted:0
