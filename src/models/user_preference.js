@@ -39,7 +39,27 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER(4),
                 defaultValue: '0'
             },
-            
+            ethnicity:{
+                type:DataTypes.STRING(45)
+            },
+            beliefs:{
+                type:DataTypes.STRING(45)
+            },
+            marital_status:{
+                type:DataTypes.STRING(45)
+            },
+            minheight:{
+                type:DataTypes.STRING(45)
+            },
+            maxheight:{
+                type:DataTypes.STRING(45)
+            },
+            minAge:{
+                type:DataTypes.STRING(45)
+            },
+            maxAge:{
+                type:DataTypes.STRING(45)
+            },
         
     },
      {
