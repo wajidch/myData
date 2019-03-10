@@ -14,6 +14,7 @@ const userPreferenceModel = 'user_preference';
 module.exports = (req, callback) => {
     model[userModel].findOne({
         where: { phone: req.phone },
+       
         deleted:0
     }).then(usersList => {
 
@@ -23,12 +24,15 @@ module.exports = (req, callback) => {
             return callback(null, responses.notFoundResponse());
         } else {
 
+            
             model[userPreferenceModel].findOne({
                 where:{
                     user_id:usersList.id
                 }
             }).then(userPreference=>{
+                console.log("s",userPreference)
                 if(userPreference){
+                    console.log("ss in")
                     model[userModel].findAll({
                         where: {
                             id:{[Op.ne]:req.user_id},

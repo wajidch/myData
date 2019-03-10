@@ -24,7 +24,14 @@ module.exports = (req, callback) => {
     model[userPreferenceModel].findOne({ where: { user_id: { [Op.eq]: req.user_id } } }).then(employee => {
         if (employee) {
 
-            return callback(null, responses.duplicateResponse());
+            model[userPreferenceModel].update(req,{
+                where:{
+                    user_id:{ [Op.eq]: req.user_id }
+                }
+            }).then(created => {
+               
+                return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.UPDATION_SUCCESSFULL, req));
+            })
         } else {
 
 
@@ -32,7 +39,6 @@ module.exports = (req, callback) => {
 
             model[userPreferenceModel].create(req).then(created => {
                 let userPreference = {
-                    id: created.id,
                     user_id:created.user_id,
                     country:created.country,
                     country_switch:created.country_switch,
