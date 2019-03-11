@@ -17,7 +17,8 @@ const userfavouriteList=require('../controllers/users/favouriteList');
 const edit=require('../controllers/users/user_edit')
 const userLikeList=require('../controllers/users/user-like-list')
 const whoLikeMe=require('../controllers/users/whoLikeMe')
-const userPreference=require('../controllers/users/user_preference')
+const userPreference=require('../controllers/users/user_preference');
+const userPreferenceList=require('../controllers/users/user_preference_list');
 
 
 const Joi = require('joi');
@@ -241,6 +242,34 @@ module.exports = [
             },
             validate: {
                 query: validator.userlist,
+                failAction: (request, reply, source, err) => {
+                    reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
+                }
+            },
+            plugins: plugins.swaggerPlugin
+        }
+    },
+    {
+        method: 'GET',
+        path: config.apiPrefix + '/User/user-preference-list',
+        config: {
+            description: 'User List',
+            notes: 'user list against id',
+            tags: ['api', 'User'],
+            auth:false,
+          
+            handler: (request, reply) => {
+                userPreferenceList(request.query, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
+                    } else {
+                        reply(results);
+                    }
+                });
+            },
+            validate: {
+                query: validator.userPreferenceList,
                 failAction: (request, reply, source, err) => {
                     reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
                 }

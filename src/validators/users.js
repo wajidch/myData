@@ -79,6 +79,10 @@ const userLikeList={
 const whoLikeMe={
     user_id:Joi.number().required(),
 }
+const userPreferenceList={
+    user_id:Joi.number().required(),
+
+}
 const deleteMyAccount=Joi.object({
     user_id:Joi.number().required()
 })
@@ -137,5 +141,6 @@ module.exports = {
     edit,
     userLikeList,
     whoLikeMe,
-    userPreference
+    userPreference,
+    userPreferenceList
 };
