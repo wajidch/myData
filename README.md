@@ -8,7 +8,7 @@
   </a>
 </p>
 
-# Intelligent Attendance Management System
+# Loveedo
 
 ## Installation
 
