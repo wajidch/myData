@@ -67,8 +67,8 @@ module.exports = (req, callback) => {
                             lng: usersList.lng,
                             location: usersList.location,
                             token: usersList.token,
-                            image_blur: usersList.image_blur,
-                            token: usersList.token
+                            image_blur: usersList.image_blur
+
 
                         })
 
