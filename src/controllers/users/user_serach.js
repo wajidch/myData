@@ -11,32 +11,21 @@ const userLikeModel = 'user_likes';
 
 
 module.exports = (req, callback) => {
-   
-console.log(req)
-            model[userModel].findAll({
-                where: {
-                    [Op.or]: [
-                        { ethnicity: req.ethnicity },
-                        { beliefs: req.beliefs },
-                        { marital_status: req.marital_status },
-                        { height: { [Op.gte]: req.minheight, [Op.lte]: req.maxheight } },
-                        { age: { [Op.gte]: req.minAge, [Op.lte]: req.maxAge } },
-                        { distance: { [Op.gte]: req.minDistance, [Op.lte]: req.maxDistance } },
+
+    console.log(req)
+    model[userModel].findAll({
+        where: {
+            gender: { [Op.eq]: req.gender },
+            deleted: { [Op.eq]: req.deleted }
+        },
 
 
-                    ],
-                    deleted:0,
-                },
-         
-                include:[
-                 {model:model[userLikeModel],as:'userLike',required:false}   
-                ]
-            }).then(SearchUser => {
+    }).then(SearchUser => {
 
 
-                return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.FETCH_SUCCESSFULL, SearchUser));
-            })
-        
+        return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.FETCH_SUCCESSFULL, SearchUser));
+    })
 
-   
+
+
 }
