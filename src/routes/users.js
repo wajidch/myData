@@ -8,22 +8,23 @@ const config = require('../../configs/config');
 const validator = require('../validators/users');
 const login = require('../controllers/users/login');
 const signUp = require('../controllers/users/sign-up');
-const userList=require('../controllers/users/list');
-const userLike=require('../controllers/users/user_likes');
-const deleteMyAccount=require('../controllers/users/user_delete_account');
-const userSearch=require('../controllers/users/user_serach');
-const addfavourite=require('../controllers/users/user_add_favourite');
-const userfavouriteList=require('../controllers/users/favouriteList');
-const edit=require('../controllers/users/user_edit')
-const userLikeList=require('../controllers/users/user-like-list')
-const whoLikeMe=require('../controllers/users/whoLikeMe')
-const userPreference=require('../controllers/users/user_preference');
-const userPreferenceList=require('../controllers/users/user_preference_list');
+const userList = require('../controllers/users/list');
+const userLike = require('../controllers/users/user_likes');
+const deleteMyAccount = require('../controllers/users/user_delete_account');
+const userSearch = require('../controllers/users/user_serach');
+const addfavourite = require('../controllers/users/user_add_favourite');
+const userfavouriteList = require('../controllers/users/favouriteList');
+const edit = require('../controllers/users/user_edit')
+const userLikeList = require('../controllers/users/user-like-list')
+const whoLikeMe = require('../controllers/users/whoLikeMe')
+const userPreference = require('../controllers/users/user_preference');
+const userPreferenceList = require('../controllers/users/user_preference_list');
+const updateToken = require('../controllers/users/update-token');
 
 
 const Joi = require('joi');
 module.exports = [
-   
+
     // Users login
     {
         method: 'POST',
@@ -52,8 +53,8 @@ module.exports = [
             plugins: plugins.swaggerPlugin
         }
     },
-     // Users Register
-     {
+    // Users Register
+    {
         method: 'POST',
         path: config.apiPrefix + '/User/Register',
         config: {
@@ -107,37 +108,37 @@ module.exports = [
             plugins: plugins.swaggerPlugin
         }
     },
- // Users Register
- {
-    method: 'POST',
-    path: config.apiPrefix + '/User/user-add-favourite',
-    config: {
-        description: 'add to favourite',
-        notes: 'add to favourite.',
-        tags: ['api', 'User'],
-        auth: false,
-        handler: (request, reply) => {
-            addfavourite(request.payload, (err, results) => {
-                if (err) {
-                    console.log(err);
-                    reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
-                } else {
-                    reply(results);
+    // Users Register
+    {
+        method: 'POST',
+        path: config.apiPrefix + '/User/user-add-favourite',
+        config: {
+            description: 'add to favourite',
+            notes: 'add to favourite.',
+            tags: ['api', 'User'],
+            auth: false,
+            handler: (request, reply) => {
+                addfavourite(request.payload, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
+                    } else {
+                        reply(results);
+                    }
+                });
+            },
+            validate: {
+                payload: validator.userFavourite,
+                failAction: (request, reply, source, err) => {
+                    reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
                 }
-            });
-        },
-        validate: {
-            payload: validator.userFavourite,
-            failAction: (request, reply, source, err) => {
-                reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
-            }
-        },
-        plugins: plugins.swaggerPlugin
-    }
-},
+            },
+            plugins: plugins.swaggerPlugin
+        }
+    },
 
-      // Users Like
-      {
+    // Users Like
+    {
         method: 'POST',
         path: config.apiPrefix + '/User/userLiked',
         config: {
@@ -220,16 +221,44 @@ module.exports = [
             plugins: plugins.swaggerPlugin
         }
     },
-      //  Product list API
-      {
+
+    {
+        method: 'PUT',
+        path: config.apiPrefix + '/User/updateToken',
+        config: {
+            description: 'Update token',
+            notes: 'Update token.',
+            tags: ['api', 'User'],
+            auth: false,
+            handler: (request, reply) => {
+                updateToken(request.payload, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
+                    } else {
+                        reply(results);
+                    }
+                });
+            },
+            validate: {
+                payload: validator.updateToken,
+                failAction: (request, reply, source, err) => {
+                    reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
+                }
+            },
+            plugins: plugins.swaggerPlugin
+        }
+    },
+    //  Product list API
+    {
         method: 'GET',
         path: config.apiPrefix + '/User/user-list',
         config: {
             description: 'User List',
             notes: 'user list against id',
             tags: ['api', 'User'],
-            auth:false,
-          
+            auth: false,
+
             handler: (request, reply) => {
                 userList(request.query, (err, results) => {
                     if (err) {
@@ -256,8 +285,8 @@ module.exports = [
             description: 'User List',
             notes: 'user list against id',
             tags: ['api', 'User'],
-            auth:false,
-          
+            auth: false,
+
             handler: (request, reply) => {
                 userPreferenceList(request.query, (err, results) => {
                     if (err) {
@@ -277,16 +306,16 @@ module.exports = [
             plugins: plugins.swaggerPlugin
         }
     },
-     //  Product list API
-     {
+    //  Product list API
+    {
         method: 'GET',
         path: config.apiPrefix + '/User/user-like-list',
         config: {
             description: 'User like against login user',
             notes: 'user list against id',
             tags: ['api', 'User'],
-            auth:false,
-          
+            auth: false,
+
             handler: (request, reply) => {
                 userLikeList(request.query, (err, results) => {
                     if (err) {
@@ -313,8 +342,8 @@ module.exports = [
             description: 'list of user who like me',
             notes: 'user list against id',
             tags: ['api', 'User'],
-            auth:false,
-          
+            auth: false,
+
             handler: (request, reply) => {
                 whoLikeMe(request.query, (err, results) => {
                     if (err) {
@@ -334,16 +363,16 @@ module.exports = [
             plugins: plugins.swaggerPlugin
         }
     },
-       //  Product list API
-       {
+    //  Product list API
+    {
         method: 'GET',
         path: config.apiPrefix + '/User/user-favourite-list',
         config: {
             description: 'User favourite List',
             notes: 'user list favourite against id',
             tags: ['api', 'User'],
-            auth:false,
-          
+            auth: false,
+
             handler: (request, reply) => {
                 userfavouriteList(request.query, (err, results) => {
                     if (err) {
@@ -363,33 +392,33 @@ module.exports = [
             plugins: plugins.swaggerPlugin
         }
     },
-  //  Product list API
-  {
-    method: 'GET',
-    path: config.apiPrefix + '/User/userSearch',
-    config: {
-        description: 'User List search',
-        notes: 'user Search',
-        tags: ['api', 'User'],
-        auth:false,
-      
-        handler: (request, reply) => {
-            userSearch(request.query, (err, results) => {
-                if (err) {
-                    console.log(err);
-                    reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
-                } else {
-                    reply(results);
+    //  Product list API
+    {
+        method: 'GET',
+        path: config.apiPrefix + '/User/userSearch',
+        config: {
+            description: 'User List search',
+            notes: 'user Search',
+            tags: ['api', 'User'],
+            auth: false,
+
+            handler: (request, reply) => {
+                userSearch(request.query, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
+                    } else {
+                        reply(results);
+                    }
+                });
+            },
+            validate: {
+                query: validator.userSearch,
+                failAction: (request, reply, source, err) => {
+                    reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
                 }
-            });
-        },
-        validate: {
-            query: validator.userSearch,
-            failAction: (request, reply, source, err) => {
-                reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
-            }
-        },
-        plugins: plugins.swaggerPlugin
-    }
-},
+            },
+            plugins: plugins.swaggerPlugin
+        }
+    },
 ];

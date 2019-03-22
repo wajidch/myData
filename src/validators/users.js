@@ -131,6 +131,10 @@ const userPreference = Joi.object({
     image_blur: Joi.number().integer().default(0),
 
 })
+const updateToken = {
+    user_id: Joi.number().required(),
+    token: Joi.string().empty('').optional(),
+}
 module.exports = {
     add,
     userlist,
@@ -144,5 +148,6 @@ module.exports = {
     userLikeList,
     whoLikeMe,
     userPreference,
-    userPreferenceList
+    userPreferenceList,
+    updateToken
 };
