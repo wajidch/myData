@@ -10,6 +10,7 @@ const login = require('../controllers/users/admin/login');
 const userList = require('../controllers/users/admin/list');
 const singleNotification = require('../controllers/users/admin/single-notification');
 const multiNotification = require('../controllers/users/admin/multi-notification');
+const notificationList = require('../controllers/users/admin/notificationList');
 
 const Joi = require('joi');
 module.exports = [
@@ -53,6 +54,29 @@ module.exports = [
 
             handler: (request, reply) => {
                 userList(request.query, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
+                    } else {
+                        reply(results);
+                    }
+                });
+            },
+
+            plugins: plugins.swaggerPlugin
+        }
+    },
+    {
+        method: 'GET',
+        path: config.apiPrefix + '/admin/notification-list',
+        config: {
+            description: 'notification-list',
+            notes: 'notification-list',
+            tags: ['api', 'ADMIN'],
+            auth: false,
+
+            handler: (request, reply) => {
+                notificationList(request.query, (err, results) => {
                     if (err) {
                         console.log(err);
                         reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);

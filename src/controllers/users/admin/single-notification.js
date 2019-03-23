@@ -16,6 +16,7 @@ const model = require('../../../models');
 const Op = model.Sequelize.Op;
 
 const userModel = 'users';
+const notificationModel = 'notification'
 module.exports = (req, callback) => {
 
     model[userModel].findOne({
@@ -36,6 +37,11 @@ module.exports = (req, callback) => {
         singleNotification(notificationRequestObj, (err, res) => {
             if (err) { callback(err) }
             else {
+
+                let notificationCreate = {
+                    notification: req.message
+                }
+                model[notificationModel].create(notificationCreate)
                 return callback(null, responses.dataResponse(statusCodes.OK, 'Notification Send'));
 
             }

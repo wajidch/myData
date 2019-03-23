@@ -14,6 +14,7 @@ const sendNotification = require('../../../utilities/fcmAdmin')
 
 const model = require('../../../models');
 const Op = model.Sequelize.Op;
+const notificationModel = 'notification'
 
 const userModel = 'users';
 
@@ -42,7 +43,12 @@ module.exports = (req, callback) => {
         console.log("s", notificationRequestObj)
         let notificationPromise = sendNotification.sendToMultiple(notificationRequestObj, fcmtokenArray);
 
+
         notificationPromise.then(success => {
+            let notificationCreate = {
+                notification: req.message
+            }
+            model[notificationModel].create(notificationCreate)
             return callback(null, responses.dataResponse(statusCodes.OK, 'Notification Sent'));
 
         }).catch(err => {
