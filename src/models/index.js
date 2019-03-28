@@ -9,13 +9,13 @@ const sequelize = new Sequelize(config.db.database, config.db.user, config.db.pa
     host: config.db.host,
     dialect: 'mysql',
     operatorsAliases: Sequelize.Op,
-    pool: {max: 5, min: 0, acquire: 30000, idle: 10000},
+    pool: { max: 5, min: 0, acquire: 30000, idle: 10000 },
     define: {
         timestamps: false,
         freezeTableName: true
     },
     logging: (str) => {
-        
+
     }
 });
 const db = {};
@@ -36,8 +36,8 @@ Object.keys(db).forEach(function (modelName) {
 });
 
 
-db.users.hasMany(db.user_likes, {
-    foreignKey: {name: 'user_liked_id', allowNull: true},
+db.user_likes.belongsTo(db.users, {
+    foreignKey: { name: 'user_liked_id', allowNull: true },
     as: 'userLike'
 });
 
