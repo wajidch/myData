@@ -20,6 +20,7 @@ const whoLikeMe = require('../controllers/users/whoLikeMe')
 const userPreference = require('../controllers/users/user_preference');
 const userPreferenceList = require('../controllers/users/user_preference_list');
 const updateToken = require('../controllers/users/update-token');
+const MatchUser = require('../controllers/users/my-matches')
 
 
 const Joi = require('joi');
@@ -356,6 +357,34 @@ module.exports = [
             },
             validate: {
                 query: validator.whoLikeMe,
+                failAction: (request, reply, source, err) => {
+                    reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
+                }
+            },
+            plugins: plugins.swaggerPlugin
+        }
+    },
+    {
+        method: 'GET',
+        path: config.apiPrefix + '/User/my-match',
+        config: {
+            description: 'list of matched user',
+            notes: 'list of matched user',
+            tags: ['api', 'User'],
+            auth: false,
+
+            handler: (request, reply) => {
+                MatchUser(request.query, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
+                    } else {
+                        reply(results);
+                    }
+                });
+            },
+            validate: {
+                query: validator.MatchUser,
                 failAction: (request, reply, source, err) => {
                     reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
                 }
