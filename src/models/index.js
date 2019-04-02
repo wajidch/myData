@@ -42,6 +42,13 @@ db.user_likes.belongsTo(db.users, {
 });
 
 
+db.user_likes.belongsTo(db.users, {
+    foreignKey: { name: 'user_id', allowNull: true },
+    as: 'whoLikeMe'
+});
+
+
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
