@@ -19,6 +19,7 @@ const initilze = require('../fcm/initializeApp')
 module.exports = (params, reply) => {
     initilze.admin;
     const message = { notification: params.notification, token: params.fcmToken };
+    console.log("msg", message)
     admin.messaging().send(message).then((response) => {
         return reply(null, response)
     }).catch((error) => {
