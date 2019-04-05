@@ -81,6 +81,7 @@ const whoLikeMe = {
 }
 const MatchUser = {
     user_id: Joi.number().required(),
+    user_liked_id: Joi.number().required(),
 }
 const userPreferenceList = {
     user_id: Joi.number().required(),
