@@ -7,9 +7,9 @@ module.exports = {
     projectName: process.env.PROJECT_NAME,
     secretKey: process.env.SERVER_SECRET_KEY,
     rootPath: path.join(__dirname, '/..'),
-    serverUrl: 'http://134.209.29.69:5001',
-    //serverUrl: 'localhost:6001',
-    port: '5001',
+    //serverUrl: 'http://134.209.29.69:5001',
+    serverUrl: 'localhost:6001',
+    port: '6001',
     environment: process.env.NODE_ENV,
     mailer: {
         service: process.env.MAILER_PROVIDER,

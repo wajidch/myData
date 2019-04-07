@@ -70,7 +70,7 @@ const userLiked = Joi.object({
     user_id: Joi.number().required(),
     user_liked_id: Joi.number().required(),
     user_liked_name: Joi.string().required(),
-    isLike: Joi.string().required()
+    isLike: Joi.string().required().valid("Yes", "No")
 })
 const userLikeList = {
     user_id: Joi.number().required(),
@@ -81,7 +81,7 @@ const whoLikeMe = {
 }
 const MatchUser = {
     user_id: Joi.number().required(),
-    user_liked_id: Joi.number().required(),
+
 }
 const userPreferenceList = {
     user_id: Joi.number().required(),
