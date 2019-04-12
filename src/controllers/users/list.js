@@ -13,9 +13,10 @@ const userPreferenceModel = 'user_preference';
 
 module.exports = (req, callback) => {
     model[userModel].findOne({
-        where: { phone: req.phone },
+        where: {
+            phone: req.phone, deleted: 0
+        },
 
-        deleted: 0
     }).then(usersList => {
 
         if (usersList == null) {
