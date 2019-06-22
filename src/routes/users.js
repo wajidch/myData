@@ -8,6 +8,7 @@ const config = require('../../configs/config');
 const validator = require('../validators/users');
 const login = require('../controllers/users/login');
 const signUp = require('../controllers/users/sign-up');
+const createCV= require('../controllers/users/add-cv');
 const userList = require('../controllers/users/list');
 const userLike = require('../controllers/users/user_likes');
 const deleteMyAccount = require('../controllers/users/user_delete_account');
@@ -75,6 +76,34 @@ module.exports = [
             },
             validate: {
                 payload: validator.add,
+                failAction: (request, reply, source, err) => {
+                    reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
+                }
+            },
+            plugins: plugins.swaggerPlugin
+        }
+    },
+    // Users Register
+    {
+        method: 'POST',
+        path: config.apiPrefix + '/User/createCV',
+        config: {
+            description: 'Create CV of logged in user',
+            notes: 'Create CV of logged in user.',
+            tags: ['api', 'User'],
+            auth: false,
+            handler: (request, reply) => {
+                createCV(request.payload, (err, results) => {
+                    if (err) {
+                        console.log(err);
+                        reply(responses.makeMessageResponse(false, statusCodes.EXPECTATION_FAILED, err.message.replace(/[^a-zA-Z ]/g, ''))).code(statusCodes.INTERNAL_SERVER_ERROR);
+                    } else {
+                        reply(results);
+                    }
+                });
+            },
+            validate: {
+                payload: validator.cvCreate,
                 failAction: (request, reply, source, err) => {
                     reply(responses.makeMessageResponse(false, statusCodes.BAD_REQUEST, err.message.replace(/[^a-zA-Z ]/g, '')));
                 }

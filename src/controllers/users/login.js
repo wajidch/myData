@@ -16,7 +16,8 @@ const userModel = 'users';
  */
 module.exports = (req, callback) => model[userModel].findOne({
     where: {
-        phone: req.phone,
+        user_email: req.email,
+        user_password:req.password,
         deleted:0,
     },
     attributes:{  exclude: ['deleted']}

@@ -21,26 +21,21 @@ const userModel = 'users';
  */
 module.exports = (req, callback) => {
 
-    model[userModel].findOne({ where: { user_email: { [Op.eq]: req.user_email }, deleted: 0 } }).then(users => {
-        if (users) {
-
-            return callback(null, responses.duplicateResponse());
-        } else {
+    
 
 
+             model[userModel].update(req,{
+                 where:{
+                     user_email:req.user_email
+                 }
+             }).then(updated=>{
+
+                return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.UPDATION_SUCCESSFULL, updated));
 
 
-            model[userModel].create(req).then(created => {
-              
-                return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.ADDITION_SUCCESSFULL, created));
+             })
 
 
-            }).catch(err => {
-                return callback(err)
-            });
-
-        }
-    }).catch(err => {
-        return callback(err);
-    });
+        
+  
 }

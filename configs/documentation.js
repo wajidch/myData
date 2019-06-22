@@ -4,7 +4,7 @@ const config = require('./config');
 
 const swaggerOptions = {
     info: {
-        'title': 'Loveedo Backend Apis',
+        'title': 'CV maker Backend Apis',
         'description': 'Powered by node, HapiJS, Joi, Sequelize and Swagger-UI',
     },
     securityDefinitions: {

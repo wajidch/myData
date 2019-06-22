@@ -5,32 +5,28 @@ const Joi = require('joi');
 const add = Joi.object({
 
 
-    name: Joi.string().empty('').optional(),
-    phone: Joi.string().empty('').optional(),
-    token: Joi.string().empty('').optional(),
-    date_of_birth: Joi.string().empty('').optional(),
-    gender: Joi.string().empty('').optional(),
-    interested: Joi.string().empty('').optional(),
-    beliefs: Joi.string().empty('').optional(),
-    have_religious: Joi.string().empty('').optional(),
-    pray: Joi.string().empty('').optional(),
-    relocate: Joi.string().empty('').optional(),
-    marital_status: Joi.string().empty('').optional(),
-    looking_for: Joi.string().empty('').optional(),
-    have_children: Joi.string().empty('').optional(),
-    education: Joi.string().empty('').optional(),
-    occuption: Joi.string().empty('').optional(),
-    ethnicity: Joi.string().empty('').optional(),
-    nationality: Joi.string().empty('').optional(),
-    decription: Joi.string().empty('').optional(),
-    profile_picture: Joi.string().empty('').optional(),
-    lat: Joi.string().empty('').optional(),
-    lng: Joi.string().empty('').optional(),
-    location: Joi.string().empty('').optional(),
-    image_blur: Joi.number().integer().default(0)
-
+    user_name: Joi.string().empty('').optional(),
+    user_email: Joi.string().empty('').optional(),
+    user_password: Joi.string().empty('').optional(),
+   
 
 });
+
+const cvCreate=Joi.object({
+    user_name: Joi.string().empty('').optional(),
+    user_email: Joi.string().empty('').optional(),
+    user_phone:Joi.string().empty('').optional(),
+    website:Joi.string().empty('').optional(),
+    address:Joi.string().empty('').optional(),
+    job_title:Joi.string().empty('').optional(),
+    company_name:Joi.string().empty('').optional(),
+    startDate:Joi.date().empty('').optional(),
+    endDate:Joi.date().empty('').optional(),
+    institution_name:Joi.string().empty('').optional(),
+    Qualifaction:Joi.string().empty('').optional(),
+    interest:Joi.string().empty('').optional(),
+    reference:Joi.string().empty('').optional(),
+})
 
 const edit = Joi.object({
 
@@ -114,7 +110,10 @@ const userFavouriteList = Joi.object({
 
 })
 const userLogin = Joi.object({
-    phone: Joi.string().required()
+    email: Joi.string().required(),
+    password: Joi.string().required(),
+
+
 })
 const userPreference = Joi.object({
 
@@ -141,6 +140,7 @@ const updateToken = {
 }
 module.exports = {
     add,
+    cvCreate,
     userlist,
     userLiked,
     deleteMyAccount,

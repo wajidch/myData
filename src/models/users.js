@@ -38,68 +38,24 @@ module.exports = function (sequelize, DataTypes) {
             endDate:{
                 type:DataTypes.DATE
             },
-            marital_status:{
-                type:DataTypes.STRING(45)
-            },
-            looking_for:{
-                type:DataTypes.STRING(45)
-            },
-            have_children:{
-                type:DataTypes.STRING(45)
-            },
-            education:{
-                type:DataTypes.STRING(45)
-            },
-            occuption:{
-                type:DataTypes.STRING(45)
-            },
-            ethnicity:{
-                type:DataTypes.STRING(45)
-            },
-            nationality:{
-                type:DataTypes.STRING(45)
-            },
-            decription:{
-                type:DataTypes.STRING(300)
-            },
-            token:{
+            institution_name:{
                 type:DataTypes.STRING(500)
             },
-            age:{
-                type:DataTypes.STRING(45)
+            Qualifaction:{
+                type:DataTypes.STRING(500)
             },
-            distance:{
-                type:DataTypes.STRING(45)
+            interest:{
+                type:DataTypes.STRING(500)
             },
-            profile_picture:{
-                type:DataTypes.STRING(45)
+            reference:{
+                type:DataTypes.STRING(500)
             },
-            country:{
-                type:DataTypes.STRING(45)
-            },
-            height:{
-                type:DataTypes.STRING(45)
-            },
+          
             deleted: {
                 type: DataTypes.INTEGER(4),
                 defaultValue: '0'
             },
-            lat:{
-                type:DataTypes.STRING(100)
-
-            },
-
-            lng:{
-                type:DataTypes.STRING(100)
-            },
-            location:
-            {
-                type:DataTypes.STRING(100)
-            },
-            image_blur:{
-                type: DataTypes.INTEGER(4),
-                defaultValue: '0'
-            }
+          
           
         
     },
