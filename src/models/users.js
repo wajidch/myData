@@ -8,32 +8,35 @@ module.exports = function (sequelize, DataTypes) {
                 primaryKey: true,
                 autoIncrement: true
             },
-            name:{
+            user_name:{
                 type:DataTypes.STRING(45)
             },
-            phone:{
+            user_email:{
                 type:DataTypes.STRING(45)
             },
-            date_of_birth:{
+            user_password:{
                 type:DataTypes.STRING(45)
             },
-            gender:{
+            user_phone:{
                 type:DataTypes.STRING(45)
             },
-            interested:{
+            website:{
                 type:DataTypes.STRING(45)
             },
-            beliefs:{
+            address:{
+                type:DataTypes.STRING(200)
+            },
+            job_title:{
                 type:DataTypes.STRING(45)
             },
-            have_religious:{
-                type:DataTypes.STRING(45)
+            company_name:{
+                type:DataTypes.STRING(200)
             },
-            pray:{
-                type:DataTypes.STRING(45)
+            startDate:{
+                type:DataTypes.DATE
             },
-            relocate:{
-                type:DataTypes.STRING(45)
+            endDate:{
+                type:DataTypes.DATE
             },
             marital_status:{
                 type:DataTypes.STRING(45)
