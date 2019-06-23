@@ -8,17 +8,23 @@ const Op = model.Sequelize.Op;
 
 const userModel = 'users';
 
+const moment=require('moment');
 
 module.exports = (req, callback) => {
+    
     model[userModel].findAll({
-        where: { deleted: 0 },
+        limit:2,
 
-        attributes: ['id', 'name']
+        where: {
+             deleted: 0,
+             isCV:1
+        },
+
+        order: [ [ 'id', 'DESC' ]]
+
+
     }).then(usersList => {
-
-
         return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.FETCH_SUCCESSFULL, usersList));
-
 
 
     })

@@ -9,6 +9,7 @@ const config = require('../../configs/config');
 const fs=require('fs')
 const upload = require('../utilities/upload');
 
+
 module.exports = [
     {
     method: "POST",
@@ -28,8 +29,7 @@ module.exports = [
         fileName:request.payload["file"].hapi.filename ,
         message:'File uploaded successfully'
     }
-       
-            request.payload["file"].pipe(fs.createWriteStream("/var/www/html/uploads/" + request.payload["file"].hapi.filename))
+            request.payload["file"].pipe(fs.createWriteStream("C:/xampp/htdocs/upload/" + request.payload["file"].hapi.filename))
         
         response(result);
     }

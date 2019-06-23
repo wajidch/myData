@@ -15,16 +15,20 @@ const userModel = 'users';
 
 
 /**
- * Create CV
+ * Update CV
  * @param req is containing payload sent from user
  * @param callback will return response to handler
- * Create cv
+ * Update cv
  */
 module.exports = (req, callback) => {
 
-    
+    console.log(req)
 
-             model[userModel].create(req
+             model[userModel].update(req,{
+                 where:{
+                     id:req.user_id
+                 }
+             }
              ).then(updated=>{
 
                 return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.ADDITION_SUCCESSFULL, updated));

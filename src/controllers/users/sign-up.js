@@ -21,7 +21,7 @@ const userModel = 'users';
  */
 module.exports = (req, callback) => {
 
-    model[userModel].findOne({ where: { user_email: { [Op.eq]: req.user_email }, deleted: 0 } }).then(users => {
+    model[userModel].findOne({ where: { user_email: { [Op.eq]: req.user_email }, deleted: 0,isCV:0 } }).then(users => {
         if (users) {
 
             return callback(null, responses.duplicateResponse());

@@ -7,25 +7,24 @@ const model = require('../../models');
 const Op = model.Sequelize.Op;
 
 const userModel = 'users';
-const userLikeModel = 'user_likes';
 
+const moment=require('moment');
 
 module.exports = (req, callback) => {
+    
+    model[userModel].findOne({
 
-    console.log(req)
-    model[userModel].findAll({
         where: {
-            gender: { [Op.eq]: req.gender },
-            deleted: { [Op.eq]: req.deleted }
+             id:req.user_id,
+             deleted: 0,
+             isCV:1
         },
 
 
-    }).then(SearchUser => {
+
+    }).then(usersList => {
+        return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.FETCH_SUCCESSFULL, usersList));
 
 
-        return callback(null, responses.dataResponse(statusCodes.OK, responseMsg.FETCH_SUCCESSFULL, SearchUser));
     })
-
-
-
 }

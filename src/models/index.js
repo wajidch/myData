@@ -36,16 +36,7 @@ Object.keys(db).forEach(function (modelName) {
 });
 
 
-db.user_likes.belongsTo(db.users, {
-    foreignKey: { name: 'user_liked_id', allowNull: true },
-    as: 'userLike'
-});
 
-
-db.user_likes.belongsTo(db.users, {
-    foreignKey: { name: 'user_id', allowNull: true },
-    as: 'whoLikeMe'
-});
 
 
 

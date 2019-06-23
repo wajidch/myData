@@ -38,25 +38,27 @@ module.exports = function (sequelize, DataTypes) {
             endDate:{
                 type:DataTypes.DATE
             },
-            institution_name:{
+            skill:{
                 type:DataTypes.STRING(500)
             },
-            Qualifaction:{
-                type:DataTypes.STRING(500)
+           
+            profile_picture:{
+                type:DataTypes.STRING(200)
+
             },
-            interest:{
+            breif_description:{
                 type:DataTypes.STRING(500)
+
             },
-            reference:{
-                type:DataTypes.STRING(500)
+            isCV:{
+                type: DataTypes.INTEGER(4),
+                defaultValue: '0'
             },
-          
             deleted: {
                 type: DataTypes.INTEGER(4),
                 defaultValue: '0'
             },
-          
-          
+                    
         
     },
      {
